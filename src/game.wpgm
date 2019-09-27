@@ -5,13 +5,28 @@ import cultivos.*
 program farmville {
 	//  CONFIG	
 	game.title("FarmVille")
-	game.height(10)
-	game.width(10)
+	game.height(15)
+	game.width(15)
 	game.ground("ground.png")
 
 	//  VISUALES
  	game.addVisualCharacter(hector)
- 	game.addVisualIn(new Maiz(), game.at(1, 1))
+ 	keyboard.m().onPressDo {
+ 		game.addVisualIn(new Maiz(), hector.position())
+ 	}
+ 	keyboard.o().onPressDo {
+ 		const t = new Tomaco()
+ 		t.position(hector.position())
+ 		game.addVisualIn(new Tomaco(), hector.position())
+ 	}
+  	keyboard.t().onPressDo {
+  		game.addVisualIn(new Trigo(), hector.position())
+  	}
+ 	keyboard.r().onPressDo {
+ 		const objetos = game.getObjectsIn(hector.position())
+ 		const laPlanta = objetos.find { o => o != hector }
+ 		laPlanta.regar()
+ 	}
  	
  	//  COMIENZA
 	game.start()
